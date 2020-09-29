@@ -124,7 +124,7 @@ $cyan-darker: #1d817f;
 }
 
 .p-modal-card {
-  width: 800px;
+  width: 1000px;
   max-width: 95%;
   background-color: white;
   border-radius: $radius;
