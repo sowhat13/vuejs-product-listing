@@ -12,7 +12,7 @@
   <p><i class="fas fa-check"></i> Modal Loader</p>
   <p><i class="fas fa-check"></i> Filter By Color</p>
   <p><i class="fas fa-check"></i> Sort By ID Number(There is a problem in MockAPI, its order id numbers like 91-90-9-89), Price, Publish Time </p>
-   <p><i class="fas fa-check"></i> Responsive (and cool :d) Design</p>
+   <p><i class="fas fa-check"></i> Responsive Design</p>
    <p><i class="fas fa-check"></i> Accesibility</p>
    <p><i class="fas fa-check"></i> Components</p>
 
