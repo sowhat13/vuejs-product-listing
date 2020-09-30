@@ -1,92 +1,91 @@
 <template>
- 
- 
+  <pfilter class="filter-sticky" @clicked="onClickChild"></pfilter>
 
-
-  <div
-    v-for="product in products"
-    :key="product.id"
-    class="product-card"
-     @click="openmodal(product)"
-
-
-  >
-    <div class="product-card-overlay" >
-      <i class="fas fa-search-plus"></i> Details
-    </div>
-    <img :src="`${product.image}`"    />
+  <div class="grid grid-cols-1 md:grid-cols-4">
     <div
-      class="product-card-color ml-auto"
-      :style="` background-color:${product.color} `"
-    ></div>
+      v-for="product in products"
+      :key="product.id"
+      class="product-card"
+      @click="openmodal(product)"
+    >
+      <div class="product-card-overlay">
+        <i class="fas fa-search-plus"></i> Details
+      </div>
+      <img :src="`${product.image}`" />
 
-    <div class="p-3 h-full flex flex-col">
-      <span class="product-card-name flex items-center">
-        {{ product.name }}
-      </span>
-      <span class="product-card-price">{{ product.price }} $</span>
+      <div
+        class="product-card-color ml-auto"
+        :style="` background-color:${product.color} `"
+      ></div>
 
-      <div class="product-card-footer">
-        <div class="product-card-time">
-          {{ product.createdAt.slice(8, 10) }}.{{
-            product.createdAt.slice(5, 7)
-          }}.{{ product.createdAt.slice(0, 4) }}
+      <div class="p-3 h-full flex flex-col">
+        <span class="product-card-name flex items-center">
+          {{ product.name }}
+        </span>
+        <span class="product-card-price">{{ product.price }} $</span>
+
+        <div class="product-card-footer">
+          <div class="product-card-time">
+            {{ product.createdAt.slice(8, 10) }}.{{
+              product.createdAt.slice(5, 7)
+            }}.{{ product.createdAt.slice(0, 4) }}
+          </div>
         </div>
       </div>
     </div>
-
-    
+    <skeleton v-if="loading"> </skeleton>
   </div>
 
-    <p-modal :pid="this.productid" v-if="this.$store.state.productmodal"></p-modal>
-  <skeleton v-if="loading"> </skeleton>
+  <p-modal
+    :pid="this.productid"
+    v-if="this.$store.state.productmodal"
+  ></p-modal>
 </template>
 
 <script>
 import axios from "axios";
-import skeleton from "./skeleton"
-import pModal from "./p-modal"
+import skeleton from "./skeleton";
+import pModal from "./p-modal";
+import pfilter from "./p-filter";
 
 export default {
   data() {
     return {
-      products: '',
+      products: "",
       loading: true,
-      colorfilter:'olive',
-    productid:'',
+      isFirst: true,
+      productid: "",
     };
   },
   mounted() {
-this.getProduct();
-
-
+    this.onClickChild();
   },
 
-
-
-  methods:{
-                async getProduct() {
-      const productsres = await axios.get(
-       `https://5f7301beb63868001615f226.mockapi.io/api/products`
-      )
-          this.products = productsres.data;
-          this.loading = false;
+  methods: {
+    async onClickChild(value) {
+      let url = "";
+      if (this.isFirst) {
+        url = `https://5f7301beb63868001615f226.mockapi.io/api/products`;
+      } else {
+        url = `https://5f7301beb63868001615f226.mockapi.io/api/products?color=${value.selectedcolor}&sortBy=${value.sortby}&order=${value.orderby}`;
+      }
+      const productsres = await axios.get(url);
+      this.products = productsres.data;
+      this.loading = false;
+      this.isFirst = false;
     },
 
-openmodal(product) {
-  this.$store.state.productmodal = true;
-  this.productid = product.id
- console.log(this.productid)
-},
-  
+    openmodal(product) {
+      this.$store.state.productmodal = true;
+      this.productid = product.id;
+    },
   },
-  
 
   components: {
     skeleton,
-    pModal
+    pModal,
+    pfilter,
   },
-
 };
 </script>
 <style lang="scss">
@@ -98,6 +97,13 @@ $cyan-light: #54dbfd;
 $cyan-normal: #3fffca;
 $cyan-dark: #2a96b5;
 $cyan-darker: #1d817f;
+
+.filter-sticky {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 601;
+}
 
 .product-card {
   display: flex;
@@ -124,7 +130,7 @@ $cyan-darker: #1d817f;
     text-shadow: 1px 1px 3px rgba(1, 1, 1, 0.5);
     font-weight: 600;
     flex-direction: column;
-    z-index:600;  
+    z-index: 600;
   }
 
   .product-card-name {
@@ -159,7 +165,7 @@ $cyan-darker: #1d817f;
     position: absolute;
     top: 15px;
     right: 15px;
-    z-index:500;
+    z-index: 500;
   }
 
   .product-card-footer {

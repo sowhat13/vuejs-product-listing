@@ -1,7 +1,7 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/">Store</router-link> 
+    <router-link to="/foo">Foo</router-link>
   </div>
   <router-view/>
 </template>
@@ -11,5 +11,28 @@
 body{
   font-family: 'Rubik', sans-serif;
 overflow-x:hidden;
+}
+
+#nav {
+  display:flex;
+width:100%;
+padding:15px;
+background-color:cyan;
+justify-content: center;
+align-items: center;
+color:white;
+font-weight:700;
+font-size:18px;
+*{
+  margin:0 10px;
+}
+
+*:hover{
+   text-shadow:1px 1px 10px #a3a3a3 !important;
+}
+
+.router-link-active {
+ text-shadow:1px 1px 5px #686868;
+}
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="mloading" v-if="mloading">
-    <div></div>
+    <div class="spinner"></div>
   </div>
 
   <div class="p-modal">
@@ -18,13 +18,50 @@
         <div class="p-modal-image w-1/1 md:w-5/12">
           <img :src="`${product.image}`" />
         </div>
-        <div class="p-modal-info">
+        <div class="p-modal-info w-1/1 md:w-5/12">
           <span class="p-modal-name">{{ product.name }}</span>
 
-          <span class="p-modal-seller">Seller: {{ productdet.seller }}</span>
+          <span class="p-modal-seller ">by {{ productdet.seller }}</span>
+
+
+
+          <span class="p-modal-price">{{ product.price }} $</span>
+
+          <span class="p-modal-attr">
+            <i class="fas fa-check-double"></i>
+             {{ productdet.attribute }}</span>
+
+          <span class="p-modal-desc">
+            <p>Description</p>
+            
+          <span> {{ productdet.productdesc }}</span>  </span>
+
+<div class="p-modal-buy">
+<button class="addtocart"><i class="fas fa-shopping-cart"></i> Add To Cart</button>  
+
+<button class="buynow">
+  <i class="fas fa-money-check"></i>
+  Buy Now</button>  
+
+
+</div>
         </div>
+        <div class=" p-modal-info2 w-1/1 md:w-2/12">
+
+        <span class="p-modal-time mt-auto ml-auto">
+          {{ product.createdAt.slice(8, 10) }}.{{
+            product.createdAt.slice(5, 7)
+          }}.{{ product.createdAt.slice(0, 4) }}</span
+        >
       </div>
+      </div>
+<span class="close-modal">
+        <i
+           @click="this.$store.state.productmodal = false"
+         class="fas fa-times"></i></span>
     </div>
+
+  
   </div>
 </template>
 
@@ -76,6 +113,9 @@ $cyan-light: #54dbfd;
 $cyan-normal: #3fffca;
 $cyan-dark: #2a96b5;
 $cyan-darker: #1d817f;
+$redish:rgb(255, 141, 141);
+$redish-dark:rgb(245, 124, 124);
+$shadow:0 0 5px 1px rgba(0, 0, 0, 0.234);
 
 .mloading {
   position: fixed;
@@ -89,7 +129,7 @@ $cyan-darker: #1d817f;
   justify-content: center;
   align-items: center;
 
-  div {
+  .spinner {
     border: 3px dashed $cyan-normal;
     text-shadow: 1px 1px 0 $cyan-light, 1px 1px 10px $cyan-lighter;
     animation: mloading 2s infinite;
@@ -131,9 +171,25 @@ $cyan-darker: #1d817f;
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 5%;
+  margin: 5%;
   z-index: 1000;
   padding: 15px;
+
+.close-modal{
+  position:absolute;
+  right:1%;
+  top:1%;
+  font-size:18px;
+  background-color:gray;
+  width:24px;
+  height:24px;
+  border-radius:50%;
+  color:white;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  cursor:pointer;
+}
 
   .p-modal-image {
     max-width: 100%;
@@ -143,12 +199,116 @@ $cyan-darker: #1d817f;
       object-fit: contain;
     }
   }
+
+  .p-modal-name {
+    font-size: 24px;
+    letter-spacing: 0.3px;
+    color: $cyan-normal;
+    font-weight: 500;
+  }
+  .p-modal-attr{
+       font-size: 16px;
+    color: $redish;
+    font-weight: 400;
+  }
+
+  .p-modal-seller {
+    font-size: 12px;
+    color: rgb(155, 155, 155);
+    font-weight: 400;
+  }
+
+  .p-modal-price {
+    font-size: 26px;
+    letter-spacing: 0.3px;
+    color: $cyan-darker;
+    margin: 10px 0;
+  }
+
+    .p-modal-desc {
+    font-size: 15px;
+    color: rgb(155, 155, 155);
+    margin:10px 0;
+
+
+    p{
+          font-size: 16px;
+         
+          padding-left:3px;
+          font-weight: 500;
+          margin-bottom:3px;
+        
+    }
+   span {
+   padding-top:1px;
+   } 
+  }
+
+  .p-modal-time {
+    font-size: 12px;
+    color: gray;
+  }
 }
 
 .p-modal-info {
   display: flex;
   flex-direction: column;
   padding: 15px;
+}
+
+.p-modal-info2 {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.p-modal-buy{
+  margin-top:auto;
+  *{
+margin-top:auto;
+  
+    padding:5px 10px;
+  }
+
+  .addtocart{
+    background-color:$redish;
+    border-radius:5px;
+    border:2px solid $redish-dark;
+    color:white;
+    margin-right:20px;
+  }
+  .addtocart:hover{
+    background-color:$redish-dark;
+    border:2px solid $redish-dark;
+    color:white;
+  box-shadow:$shadow;
+
+  }
+
+  .addtocart:active{
+    transform:scale(0.98);
+  }
+
+
+    .buynow{
+    border-radius:5px;
+    border:2px solid $redish-dark;
+color:$redish;
+ 
+  margin-top:20px !important;
+  }
+
+     .buynow:hover{
+    border:2px solid $redish-dark;
+color:white;
+ background-color:$redish-dark;
+  box-shadow:$shadow;
+
+  }
+
+  .buynow:active{
+    transform:scale(0.98);
+  }
 }
 
 @keyframes mloading {

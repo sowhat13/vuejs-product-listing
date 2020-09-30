@@ -1,10 +1,9 @@
 <template>
   <div class="home">
-    <div class="grid grid-cols-1 md:grid-cols-3 ">
+    
       <product></product>
          
-    </div>
-
+  
     <!-- 
       <div id="filters" class="filters">
         <form>

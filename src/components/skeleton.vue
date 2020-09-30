@@ -1,7 +1,7 @@
 <template>
   <div class="skeletoncredit h-full w-full  mx-auto flex"
   
-   v-for="skeletoncount in 6"
+   v-for="skeletoncount in 8"
       :key="skeletoncount">
 
     
