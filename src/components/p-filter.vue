@@ -6,7 +6,7 @@
         <option value="" selected>All</option>
         <option
           :style="`background-color:${filter.color} `"
-          v-for="filter in filters"
+          v-for="filter in unique(filters, 'color')"
           :key="filter"
           :value="filter.color"
         >
@@ -78,6 +78,22 @@ export default {
     onClickButton() {
       this.$emit("clicked", this.selected);
     },
+  },
+
+  computed: {
+    unique () {
+      return function (arr, key) {
+        var output = []
+        var usedKeys = {}
+        for (var i = 0; i < arr.length; i++) {
+          if (!usedKeys[arr[i][key]]) {
+            usedKeys[arr[i][key]] = true
+            output.push(arr[i])
+          }
+        }
+        return output
+      }
+    }
   },
 };
 </script>

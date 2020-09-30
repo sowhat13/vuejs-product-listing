@@ -16,7 +16,7 @@
     >
       <div class="flex flex-col md:flex-row">
         <div class="p-modal-image w-1/1 md:w-5/12">
-          <img :src="`${product.image}`" />
+          <img class="mt-4 md:mt-0" :src="`${product.image}`" />
         </div>
         <div class="p-modal-info w-1/1 md:w-5/12">
           <span class="p-modal-name">{{ product.name }}</span>
@@ -98,7 +98,6 @@ export default {
         `https://5f7301beb63868001615f226.mockapi.io/api/products/${this.pid}/product-details`
       );
       this.productdetails = productdetres.data;
-      this.mloading = false;
     },
   },
 };
@@ -177,14 +176,11 @@ $shadow:0 0 5px 1px rgba(0, 0, 0, 0.234);
 
 .close-modal{
   position:absolute;
-  right:1%;
-  top:1%;
+  right:1.5%;
+  top:1.5%;
   font-size:18px;
-  background-color:gray;
-  width:24px;
-  height:24px;
   border-radius:50%;
-  color:white;
+  color:rgb(170, 170, 170);
   display:flex;
   justify-content: center;
   align-items: center;
